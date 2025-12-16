@@ -1,17 +1,13 @@
-from django.urls import path, include
-from .views import MarketView,ProductViewSet, MarketDetailView,SellerOfMarketList, seller_view, single_seller_view, product_view, single_product_view
-from rest_framework import routers
-router = routers.SimpleRouter()
-router.register(r'Product', ProductViewSet, basename='product')
+from django.urls import path
+from .views import ManufacturerList, ManufacturerDetail, ManufacturerUserList, ManufacturerUserDetail, ProductList, ProductDetail, ManufacturerProductListCreate
 
 
 urlpatterns = [
-    path('markets/', MarketView.as_view(), name="market-view"),
-    path('markets/<int:pk>/', MarketDetailView.as_view(), name="market-detail"),
-    path('markets/<int:pk>/sellers', SellerOfMarketList.as_view(),),
-    path('sellers/', seller_view, name="seller-view"),
-    path('sellers/<int:pk>/', single_seller_view, name="seller-detail"),
-    path('products/', product_view, name="product-view"),
-    path('products/<int:pk>/', single_product_view, name="product-detail"),
-    path('', include(router.urls))
+    path('manufacturers/', ManufacturerList.as_view(), name="manufacturer-list"),
+    path('manufacturers/<int:pk>/', ManufacturerDetail.as_view(), name="manufacturer-detail"),
+    path('manufacturer-users/', ManufacturerUserList.as_view(), name="manufactureruser-list"),
+    path('manufacturer-users/<int:pk>/', ManufacturerUserDetail.as_view(), name="manufactureruser-detail"),
+    path('products/', ProductList.as_view(), name="product-view"),
+    path('products/<int:pk>/', ProductDetail.as_view(), name="product-detail"),
+    path('manufacturers/<int:manufacturer_id>/products', ManufacturerProductListCreate.as_view(), name="manufacturer-product-list-create"),
 ]
